@@ -1,0 +1,23 @@
+{% block head %}
+{% endblock %}
+<nav class="navbar_tam navbar navbar-expand-lg navbar-light bg-light">
+	<div class="container">
+		<a id="titulo" class="navbar-brand titulo_font" href="/Nueva_pagina/public/inicio">Cooperativa {{nombre}}</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto"></ul>
+			<form class="form-inline my-2 my-lg-0">
+				<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+					<li class="nav-item">
+						<a class="nav-link" href="socios">Ver socios</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" style="color:red" href="cerrar_sesion">Cerrar sesión</a>
+					</li>
+				</ul>
+			</form>
+		</div>
+	</div>
+</nav>

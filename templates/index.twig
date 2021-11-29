@@ -1,0 +1,50 @@
+{% extends "base.twig" %}
+
+{% block head %}
+	<title>Cooperativas</title>
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<form id="form_recibo" name="form_recibo">
+			<label for="fname">Tipo de cobro</label><br>
+			<select class="form-control" name="select_cobro" id="select_cobro" required>
+				<option value="Capital_social" selected>Capital social</option>
+				<option value="Amortizaciones">Amortizaciones</option>
+				<option value="Int.Amortixaciones">Int. Amortixaciones</option>
+				<option value="Gastos comunes">Gastos comunes</option>
+				<option value="Beneficios">Beneficios</option>
+				<option value="Otros_ingresos">Otros ingresos</option>
+			</select><br>
+			<label for="lname">Tipo de pago</label>
+			<select class="form-control" name="select_pago" id="select_pago" required>
+				<option value="Caja" selected>Caja</option>
+				<option value="Banco">Banco</option>
+			</select>
+			<br>
+			<label for="lname">Numero de cuenta</label>
+			<input class="form-control" type="number" id="n_cuenta" name="n_cuenta" required><br>
+			<label for="lname">Socio</label>
+			<select class="form-control" name="socio" id="socio" required>
+				{% for so in socios %}
+					<option value="{{ so.ID }}" selected>{{ so.nombre }}</option>
+				{% endfor %}
+			</select><br>
+			<label for="lname">Concepto</label>
+			<textarea class="form-control" id="Concepto" name="Concepto" rows="4" cols="50" required></textarea><br>
+			<label for="lname">Moneda</label>
+			<select class="form-control" name="Moneda" id="Moneda" required>
+				<option value="$" selected>$</option>
+				<option value="UI">UI</option>
+				<option value="UI">UR</option>
+				<option value="US$">US$</option>
+			</select><br>
+			<label for="lname">Ingreso</label>
+			<input class="form-control" type="number" id="ingreso" name="ingreso" required>
+			<button class="btn btn-success" type="input">Aceptar</button>
+		</form>
+	</div>
+{% endblock %}
+{% block script %}
+	<script src="styles/js/principal.js"></script>
+{% endblock %}

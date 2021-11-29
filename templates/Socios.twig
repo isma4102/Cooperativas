@@ -1,0 +1,117 @@
+{% extends "base.twig" %}
+
+{% block head %}
+	<title>Cooperativas</title>
+	<link rel="stylesheet" href="/styles/css/Principal.css"/>
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_agregarsocio">
+			Agregar socio
+		</button>
+		<div class="accordion" id="accordionExample">
+			<ul class="list-group">
+				{% for so in resultado %}
+					{% if so.ID != null %}
+						<li class="list-group-item">
+							{{ so.nombre }}
+							{% if so[0].ID != 0 %}
+								<button style="float: right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{so.nombre}}">
+									Ver recibos
+								</button>
+							{% else %}
+								<button style="float: right" type="button" class="btn btn-primary" disabled>
+									Ver recibos
+								</button>
+							{% endif %}
+							<div class="modal fade " id="{{so.nombre}}" tabindex="-1" role="dialog" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLongTitle">Recibos</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<a target="_blank" href="imprimir_todo?id={{ so.ID }}" type="submit" rel="tooltip" style="float: right" class="btn btn-success">
+												<i class="material-icons">print</i>
+											</a>
+											<table class="table">
+												<thead>
+													<tr>
+														<th scope="col">ID</th>
+														<th scope="col">Tipo de pago</th>
+														<th scope="col">Tipo de cobro</th>
+														<th scope="col">Moneda</th>
+														<th scope="col">Pago</th>
+														<th scope="col">Concepto</th>
+														<th scope="col">Número de cuenta</th>
+														<th scope="col">Imprimir</th>
+													</tr>
+												</thead>
+												<tbody>
+													{% for re in so %}
+														{% if re.ID != null %}
+															<tr>
+																<th scope="row">{{ re.ID }}</th>
+																<td>{{ re.Tipo_pago }}</td>
+																<td>{{ re.Tipo_cobro }}</td>
+																<td>{{ re.Moneda }}</td>
+																<td>{{ re.Pago }}</td>
+																<td>{{ re.Concepto }}</td>
+																<td>
+																	{% if re.n_cuenta != null %}
+																		{{re.n_cuenta}}
+																	{% else %}
+																		Sin datos
+																	{% endif %}
+																</td>
+																<td>
+																	<a target="_blank" href="imprimir_uno?id={{ re.ID }}" type="submit" rel="tooltip" style="float: right" class="btn btn-success">
+																		<i class="material-icons">print</i>
+																	</a>
+																</td>
+															</tr>
+														{% endif %}
+													{% endfor %}
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+		</div>
+		<div class="modal fade" id="modal_agregarsocio" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">Agregar socio</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form id="form_socio" name="form_socio">
+							<label for="lname">Nombre</label>
+							<input class="form-control" type="text" id="nombre_socio" name="nombre_socio" required><br>
+							<label for="lname">Apellido</label>
+							<input class="form-control" type="text" id="apellido_socio" name="apellido_socio" required>
+							<label for="lname">Teléfono</label>
+							<input class="form-control" type="number" id="telefono_socio" name="telefono_socio" required>
+							<button class="btn btn-success" type="input">Aceptar</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block script %}
+	<script src="styles/js/socios.js"></script>
+{% endblock %}
